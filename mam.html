@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Любимой Маме Мехрибан — 50 лет! Золотой Юбилей ❤️</title>
+
+  <!-- Google Fonts: Cormorant Garamond for luxury headings, Montserrat for clean text, Great Vibes for calligraphy -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['Montserrat', 'sans-serif'],
+            cursive: ['"Great Vibes"', 'cursive'],
+          },
+          colors: {
+            rosegold: {
+              light: '#fbf3ee',
+              DEFAULT: '#c9a087',
+              dark: '#a67c5b',
+            },
+            gold: {
+              light: '#fdf6e2',
+              DEFAULT: '#d4af37',
+              dark: '#aa7c11',
+            },
+            stone: {
+              850: '#201d1a',
+              900: '#151311',
+            }
+          },
+          boxShadow: {
+            'gold-glow': '0 0 30px rgba(212, 175, 55, 0.25)',
+            'rose-glow': '0 0 40px rgba(201, 160, 135, 0.2)',
+            'card-premium': '0 20px 50px rgba(26, 21, 18, 0.05)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Libraries CDNs -->
+  <!-- GSAP for core animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- GSAP ScrollTrigger for scroll-based animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Canvas Confetti for celebrations -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fffcf9 0%, #fef5ee 50%, #f9ebdf 100%);
+      --gold-gradient: linear-gradient(135deg, #f1e1c3 0%, #d4af37 50%, #aa7c11 100%);
+      --rosegold-gradient: linear-gradient(135deg, #fcece3 0%, #c9a087 50%, #a67c5b 100%);
+    }
+
+    body {
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Premium glassmorphism cards */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 15px 35px rgba(201, 160, 135, 0.08);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-card:hover {
+      background: rgba(255, 255, 255, 0.65);
+      border-color: rgba(212, 175, 55, 0.3);
+      box-shadow: 0 20px 45px rgba(212, 175, 55, 0.12);
+    }
+
+    .glass-dark {
+      background: rgba(26, 21, 18, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Floating canvas overlay for background magic */
+    #background-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Custom scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #fffcf9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c9a087;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a67c5b;
+    }
+
+    /* --- Envelope Styling --- */
+    #opening-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fff7f2 0%, #fceae0 100%);
+      transition: all 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+      perspective: 1200px;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 320px;
+      height: 220px;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .envelope-wrapper:hover {
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .envelope-body {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #fdf5ef;
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 30px 60px rgba(166, 124, 91, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    /* Outer flaps using realistic shapes */
+    .envelope-body::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-bottom: 120px solid #f6e6dd;
+      z-index: 12;
+    }
+
+    .envelope-body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, #f4dfd3, transparent 20%, transparent 80%, #f4dfd3);
+      z-index: 11;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 125px solid #ebd0c0;
+      transform-origin: top;
+      transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 15;
+    }
+
+    /* Wax seal */
+    .wax-seal {
+      position: absolute;
+      top: 95px;
+      left: 130px;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #e6b800 0%, #d4af37 60%, #aa7c11 100%);
+      border-radius: 50%;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(170, 124, 17, 0.4), inset 0 2px 5px rgba(255,255,255,0.3);
+      transition: all 0.4s ease;
+    }
+    
+    .wax-seal:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 6px 20px rgba(170, 124, 17, 0.6);
+    }
+
+    .wax-seal-inner {
+      width: 44px;
+      height: 44px;
+      border: 2px dashed rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .envelope-card {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      height: 190px;
+      background: #ffffff;
+      border-radius: 8px;
+      z-index: 5;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: inset 0 0 25px rgba(201, 160, 135, 0.1), 0 5px 15px rgba(0,0,0,0.03);
+      border: 1px solid rgba(201, 160, 135, 0.2);
+    }
+
+    /* Envelope Opening Transitions */
+    #opening-overlay.is-opening .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 3;
+    }
+
+    #opening-overlay.is-opening .wax-seal {
+      opacity: 0;
+      transform: scale(0.5) translateY(-50px);
+      pointer-events: none;
+    }
+
+    #opening-overlay.is-opening .envelope-card {
+      transform: translateY(-130px) scale(1.05);
+      z-index: 14;
+      box-shadow: 0 15px 35px rgba(166, 124, 91, 0.3);
+    }
+
+    #opening-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.1);
+    }
+
+    /* --- Floating Music Player --- */
+    .music-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-radius: 50px;
+      padding: 6px 16px 6px 6px;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      box-shadow: 0 10px 30px rgba(166, 124, 91, 0.15);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .music-widget:hover {
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 12px 35px rgba(212, 175, 55, 0.25);
+    }
+
+    .vinyl-disc {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #2d2a26 40%, #151311 41%, #3a3632 60%, #151311 75%);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .vinyl-disc::before {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #d4af37;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+
+    .vinyl-disc.playing {
+      animation: spinVinyl 3.5s linear infinite;
+    }
+
+    @keyframes spinVinyl {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Audio visualizer bars simulation */
+    .visualizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 16px;
+      margin-left: 4px;
+    }
+
+    .visualizer-bar {
+      width: 3px;
+      height: 3px;
+      background: #c9a087;
+      border-radius: 3px;
+      transition: height 0.3s ease;
+    }
+
+    .playing .visualizer-bar {
+      animation: danceBar 1s ease-in-out infinite alternate;
+    }
+
+    .playing .visualizer-bar:nth-child(1) { animation-delay: 0.1s; }
+    .playing .visualizer-bar:nth-child(2) { animation-delay: 0.4s; }
+    .playing .visualizer-bar:nth-child(3) { animation-delay: 0.2s; }
+    .playing .visualizer-bar:nth-child(4) { animation-delay: 0.5s; }
+    .playing .visualizer-bar:nth-child(5) { animation-delay: 0.3s; }
+
+    @keyframes danceBar {
+      0% { height: 3px; }
+      100% { height: 16px; }
+    }
+
+    /* --- Timeline Glow --- */
+    .timeline-glow-line {
+      background: linear-gradient(180deg, transparent, #d4af37 15%, #c9a087 50%, #d4af37 85%, transparent);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    }
+
+    /* --- Cursive title flourishes --- */
+    .calligraphy {
+      font-family: 'Great Vibes', cursive;
+    }
+
+    /* --- Polaroid Cards --- */
+    .polaroid-card {
+      background: #ffffff;
+      padding: 12px 12px 28px 12px;
+      box-shadow: 0 10px 25px rgba(166, 124, 91, 0.12);
+      border: 1px solid rgba(201, 160, 135, 0.15);
+      border-radius: 4px;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .polaroid-card:hover {
+      box-shadow: 0 20px 40px rgba(166, 124, 91, 0.22);
+    }
+
+    /* Shimmer swipe reflection */
+    .polaroid-img-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      background: #f7f3ee;
+    }
+
+    .polaroid-img-wrapper::after {
+      content: '';
+      position: absolute;
+      top: -150%;
+      left: -150%;
+      width: 300%;
+      height: 300%;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+      transition: all 0.8s ease;
+      pointer-events: none;
+    }
+
+    .polaroid-card:hover .polaroid-img-wrapper::after {
+      top: 150%;
+      left: 150%;
+    }
+
+    /* Custom Lightbox styling */
+    #lightbox {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    
+    #lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* --- Gemini Constellation Interactive --- */
+    .gemini-map {
+      position: relative;
+      width: 100%;
+      max-width: 450px;
+      height: 300px;
+      margin: 0 auto;
+    }
+
+    .gemini-star {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #fff, 0 0 20px #e6b800;
+      cursor: pointer;
+      z-index: 20;
+      animation: pulseStar 2s infinite alternate;
+      transition: transform 0.3s ease;
+    }
+
+    .gemini-star:hover {
+      transform: scale(1.5);
+      background: #e6b800;
+      box-shadow: 0 0 20px #fff, 0 0 35px #e6b800;
+    }
+
+    @keyframes pulseStar {
+      0% { transform: scale(1); opacity: 0.7; }
+      100% { transform: scale(1.2); opacity: 1; }
+    }
+
+    .gemini-connector {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.15);
+      height: 1px;
+      transform-origin: left center;
+      z-index: 10;
+    }
+
+    /* --- Petal Leaf Fall Animation --- */
+    .wish-petal {
+      position: fixed;
+      top: -50px;
+      z-index: 9999;
+      pointer-events: none;
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="text-stone-800 leading-relaxed overflow-x-hidden">
+
+  <!-- ================= BACKGROUND DUST & PETALS ================= -->
+  <canvas id="background-canvas"></canvas>
+
+  <!-- ================= WELCOME SCREEN ENVELOPE ================= -->
+  <div id="opening-overlay" class="px-4">
+    <div class="text-center mb-8 max-w-sm" id="envelope-intro">
+      <span class="text-rosegold text-xs font-semibold uppercase tracking-[0.25em] block mb-2">Для мамы Мехрибан</span>
+      <h2 class="font-serif text-3xl sm:text-4xl text-stone-850 font-bold leading-tight">Вам доставлено праздничное письмо ✨</h2>
+      <p class="text-xs text-stone-500 font-light mt-3">Нажмите на золотую печать, чтобы открыть подарок всей семьи</p>
+    </div>
+
+    <div class="envelope-wrapper" id="envelope-click">
+      <div class="envelope-flap"></div>
+      <div class="envelope-body"></div>
+      <div class="wax-seal">
+        <div class="wax-seal-inner">M</div>
+      </div>
+      <div class="envelope-card">
+        <h3 class="font-cursive text-4xl text-gold-dark mt-2">Золотой Юбилей</h3>
+        <p class="font-serif text-xl font-bold text-stone-850 my-1">Любимой Маме 50 Лет! 🎂</p>
+        <div class="w-10 h-0.5 bg-rosegold mx-auto my-2"></div>
+        <p class="text-[10px] uppercase tracking-widest text-stone-400 font-medium">С любовью от мужа и детей</p>
+        <button id="envelope-open-btn" class="mt-4 px-6 py-2 bg-gradient-to-r from-gold-dark to-gold text-white font-semibold text-xs tracking-wider uppercase rounded-full shadow-md hover:scale-105 transition-transform outline-none">
+          Открыть подарок 💖
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FLOATING VINYL PLAYER ================= -->
+  <div class="music-widget" id="music-widget">
+    <div class="vinyl-disc" id="vinyl-disc" title="Нажмите, чтобы включить/выключить музыку"></div>
+    <div class="flex flex-col">
+      <span class="text-[9px] uppercase tracking-wider text-stone-400 font-bold">Фоновая Мелодия</span>
+      <div class="flex items-center gap-1">
+        <span class="text-xs font-semibold text-rosegold-dark">С любовью для мамы</span>
+        <div class="visualizer" id="music-visualizer">
+          <div class="visualizer-bar"></div>
+          <div class="visualizer-bar"></div>
+          <div class="visualizer-bar"></div>
+          <div class="visualizer-bar"></div>
+          <div class="visualizer-bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <audio id="bg-music" loop src="music.mp3"></audio>
+
+  <!-- ================= MAIN WEB APP ================= -->
+  <main id="main-content" class="opacity-0 transition-opacity duration-1000 relative z-10">
+
+    <!-- ================= HERO HEADER ================= -->
+    <header class="relative px-4 pt-20 pb-16 text-center max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-5 py-2 glass-card rounded-full mb-8 shadow-sm">
+        <span class="flex h-2 w-2 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
+        </span>
+        <p class="text-[10px] tracking-[0.25em] uppercase text-gold-dark font-bold">50 лет • Золотой Юбилей Мехрибан</p>
+      </div>
+      
+      <h1 class="font-serif text-5xl sm:text-7xl text-stone-850 font-bold leading-tight mb-4">
+        Дорогая Мамочка! ❤️
+      </h1>
+      <p class="font-cursive text-4xl text-rosegold-dark my-3">
+        Мехрибан — излучающая бесконечный свет и тепло
+      </p>
+      <p class="max-w-xl mx-auto text-stone-600 font-light text-sm sm:text-base leading-relaxed mt-6">
+        Ты — сердце нашего дома, наш вечный источник вдохновения и бесконечной любви. В этот великий день твоего 50-летия мы дарим тебе самые искренние пожелания и воспоминания, сохраненные сквозь годы!
+      </p>
+
+      <!-- Dynamic Live Countdown Timer -->
+      <div class="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4 max-w-3xl mx-auto mt-12 px-2">
+        <div class="glass-card p-4 rounded-2xl flex flex-col justify-center relative overflow-hidden group">
+          <div class="absolute inset-x-0 bottom-0 h-1 bg-rosegold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+          <span id="c-years" class="text-3xl sm:text-4xl font-serif font-bold text-gold-dark block">0</span>
+          <span class="text-[9px] uppercase tracking-wider text-stone-400 font-bold mt-1">Лет</span>
+        </div>
+        <div class="glass-card p-4 rounded-2xl flex flex-col justify-center relative overflow-hidden group">
+          <div class="absolute inset-x-0 bottom-0 h-1 bg-rosegold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+          <span id="c-months" class="text-3xl sm:text-4xl font-serif font-bold text-gold-dark block">0</span>
+          <span class="text-[9px] uppercase tracking-wider text-stone-400 font-bold mt-1">Месяцев</span>
+        </div>
+        <div class="glass-card p-4 rounded-2xl flex flex-col justify-center relative overflow-hidden group">
+          <div class="absolute inset-x-0 bottom-0 h-1 bg-rosegold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+          <span id="c-days" class="text-3xl sm:text-4xl font-serif font-bold text-gold-dark block">0</span>
+          <span class="text-[9px] uppercase tracking-wider text-stone-400 font-bold mt-1">Дней</span>
+        </div>
+        <div class="glass-card p-4 rounded-2xl flex flex-col justify-center relative overflow-hidden group">
+          <div class="absolute inset-x-0 bottom-0 h-1 bg-rosegold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+          <span id="c-hours" class="text-3xl sm:text-4xl font-serif font-bold text-gold-dark block">0</span>
+          <span class="text-[9px] uppercase tracking-wider text-stone-400 font-bold mt-1">Часов</span>
+        </div>
+        <div class="glass-card p-4 rounded-2xl flex flex-col justify-center relative overflow-hidden group">
+          <div class="absolute inset-x-0 bottom-0 h-1 bg-rosegold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+          <span id="c-mins" class="text-3xl sm:text-4xl font-serif font-bold text-gold-dark block">0</span>
+          <span class="text-[9px] uppercase tracking-wider text-stone-400 font-bold mt-1">Минут</span>
+        </div>
+        <div class="glass-card p-4 rounded-2xl flex flex-col justify-center ring-2 ring-gold/40 relative overflow-hidden shadow-gold-glow">
+          <span id="c-secs" class="text-3xl sm:text-4xl font-serif font-bold text-gold block scale-pulse">0</span>
+          <span class="text-[9px] uppercase tracking-wider text-gold-dark font-bold mt-1">Секунд</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================= LOVE LETTERS SECTION ================= -->
+    <section class="px-4 py-16 max-w-4xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="text-rosegold text-xs font-bold uppercase tracking-widest">От самых родных</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-stone-850 font-bold mt-2">Книга Семейных Пожеланий 📖</h2>
+      </div>
+
+      <div class="glass-card p-6 sm:p-10 rounded-[2.5rem] shadow-card-premium relative">
+        <!-- Letter tab headers -->
+        <div class="flex justify-center gap-3 mb-8 border-b border-stone-200/50 pb-6">
+          <button id="btn-tab-pvh" class="px-6 py-2.5 rounded-full font-medium text-xs sm:text-sm tracking-wider uppercase transition-all shadow-sm bg-gold text-white outline-none">
+            От Папы Шохрата 💍
+          </button>
+          <button id="btn-tab-kids" class="px-6 py-2.5 rounded-full font-medium text-xs sm:text-sm tracking-wider uppercase transition-all shadow-sm glass-card text-stone-650 hover:bg-stone-50 outline-none">
+            От Любимых Детей 👨‍👩‍👧‍👦
+          </button>
+        </div>
+
+        <!-- Tab 1: Papa Shoxrat -->
+        <div id="tab-pvh-content" class="transition-all duration-500">
+          <div class="flex flex-col md:flex-row items-center gap-8">
+            <div class="w-36 h-36 rounded-full overflow-hidden border-4 border-gold shadow-md shrink-0">
+              <img src="turkey2.jpg" alt="Папа Шохрат и Мама Мехрибан" class="w-full h-full object-cover" />
+            </div>
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-stone-850 mb-2">Моей дорогой Мехрибан ✨</h3>
+              <p class="font-cursive text-3xl text-rosegold-dark mb-4">«Любовь всей моей жизни»</p>
+              <div class="text-stone-650 text-sm font-light leading-relaxed space-y-4">
+                <p>Дорогая, любимая Мехрибан! Сегодня особенный день — твой золотой 50-летний юбилей. Полвека назад этот мир озарился твоим рождением, а годы, проведенные вместе с тобой, стали для меня настоящим благословением.</p>
+                <p>Ты — хранительница нашего очага, воплощение нежности, верности и великой женской мудрости. В любые моменты ты была рядом, согревая своей улыбкой и поддерживая своей любовью. Спасибо тебе за каждое прекрасное утро, за уют в нашем доме и за то счастье, которое ты даришь мне каждый день.</p>
+                <p>Я желаю тебе крепкого здоровья, душевной гармонии и пусть твоя прекрасная улыбка никогда не гаснет. Я люблю тебя бесконечно!</p>
+              </div>
+              <p class="text-right font-cursive text-3xl text-gold-dark mt-6">— Твой любящий муж Шохрат</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: The Kids -->
+        <div id="tab-kids-content" class="transition-all duration-500 hidden">
+          <div class="flex flex-col md:flex-row items-center gap-8">
+            <div class="w-36 h-36 rounded-full overflow-hidden border-4 border-rosegold shadow-md shrink-0">
+              <img src="5.jpg" alt="Мамочка Мехрибан" class="w-full h-full object-cover" />
+            </div>
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-stone-850 mb-2">Любимой Мамочке! 🌸</h3>
+              <p class="font-cursive text-3xl text-rosegold-dark mb-4">«Ты наш ангел-хранитель»</p>
+              <div class="text-stone-650 text-sm font-light leading-relaxed space-y-4">
+                <p>Родная наша мамочка! Сказать, что мы тебя любим — это ничего не сказать. Ты для нас — всё. Твои нежные руки вырастили нас, твоё любящее сердце оберегало нас от любых невзгод, а твоя мудрость направляла на верный путь.</p>
+                <p>Даже став взрослыми, мы всегда знаем, что в твоих объятиях найдем утешение, понимание и безграничное прощение. Твое имя Мехрибан переводится как ласковая, и это чистая правда. Ты отдаешь всю себя без остатка своей семье.</p>
+                <p>В этот чудесный юбилей мы обещаем делать всё, чтобы твои глаза сияли только от счастья, а на губах всегда играла радостная улыбка. С юбилеем, лучшая мама во Вселенной!</p>
+              </div>
+              <p class="text-right font-cursive text-3xl text-gold-dark mt-6">— Твои любящие дети</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TIMELINE OF LIFE ================= -->
+    <section id="timeline-section" class="px-4 py-20 max-w-5xl mx-auto relative">
+      <div class="text-center mb-16">
+        <span class="text-gold text-xs font-bold uppercase tracking-widest">Наша история</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-stone-850 font-bold mt-2">Линия Жизни Мамы Мехрибан 🗺️</h2>
+        <p class="text-xs text-stone-400 font-light mt-3">Прокручивайте страницу, чтобы пролистать золотые страницы судьбы</p>
+      </div>
+
+      <!-- Growing central line -->
+      <div class="absolute left-1/2 top-48 bottom-24 w-1 -translate-x-1/2 bg-stone-200/60 rounded-full hidden md:block"></div>
+      <div class="absolute left-1/2 top-48 bottom-24 w-1 -translate-x-1/2 timeline-glow-line rounded-full hidden md:block" id="timeline-scroll-indicator" style="height: 0%;"></div>
+
+      <div id="timeline-cards-container" class="space-y-16 relative">
+        <!-- Rendered via JS dynamically for robustness -->
+      </div>
+    </section>
+
+    <!-- ================= INTERACTIVE PHOTO GALLERY ================= -->
+    <section class="px-4 py-20 bg-stone-50/50 border-y border-stone-200/30">
+      <div class="max-w-6xl mx-auto">
+        
+        <div class="text-center mb-12">
+          <span class="text-rosegold text-xs font-bold uppercase tracking-widest">Драгоценный кадр</span>
+          <h2 class="font-serif text-3xl sm:text-4xl text-stone-850 font-bold mt-2">Галерея Любимых Воспоминаний 📸</h2>
+          <p class="text-xs text-stone-555 font-light mt-2 max-w-md mx-auto">
+            Наводите мышку для интерактивного 3D наклона и нажимайте на фото, чтобы открыть его во весь экран с описанием.
+          </p>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+          <button class="gallery-filter-btn px-5 py-2.5 rounded-full font-medium text-xs sm:text-sm transition-all bg-rosegold text-white shadow-sm outline-none" data-filter="all">Все мгновения</button>
+          <button class="gallery-filter-btn px-5 py-2.5 rounded-full font-medium text-xs sm:text-sm transition-all glass-card text-stone-600 hover:bg-stone-50 outline-none" data-filter="india">Яркая Индия 🇮🇳</button>
+          <button class="gallery-filter-btn px-5 py-2.5 rounded-full font-medium text-xs sm:text-sm transition-all glass-card text-stone-600 hover:bg-stone-50 outline-none" data-filter="turkey">Теплая Турция 🇹🇷</button>
+          <button class="gallery-filter-btn px-5 py-2.5 rounded-full font-medium text-xs sm:text-sm transition-all glass-card text-stone-600 hover:bg-stone-50 outline-none" data-filter="archive">Семейный Архив 👵</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <!-- Populated by JS dynamically with beautiful tilt and shiny effects -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= INTERACTIVE ZODIAC SECTION ================= -->
+    <section class="px-4 py-20 max-w-4xl mx-auto">
+      <div class="glass-card rounded-[3rem] p-8 sm:p-12 shadow-card-premium relative overflow-hidden">
+        
+        <!-- Space background details inside card -->
+        <div class="absolute inset-0 bg-stone-900 z-0 opacity-90"></div>
+        <div class="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-stone-850 via-stone-900 to-black"></div>
+        
+        <div class="relative z-10 text-center">
+          <span class="text-gold text-xs font-bold uppercase tracking-[0.25em] block mb-2">Звездный Путеводитель</span>
+          <h2 class="font-serif text-3xl sm:text-4xl text-white font-bold mb-4">Мама-Близнецы ♊</h2>
+          <p class="text-xs text-stone-400 font-light max-w-md mx-auto mb-8">
+            Нажимайте на сияющие звезды созвездия Близнецов ниже, чтобы открыть тайны прекрасной души мамы Мехрибан!
+          </p>
+
+          <!-- Constellation Canvas/Map -->
+          <div class="gemini-map my-6" id="gemini-constellation">
+            <svg class="absolute inset-0 w-full h-full pointer-events-none" id="gemini-lines-svg"></svg>
+            <!-- Stars will be injected by JS -->
+          </div>
+
+          <!-- Feature Trait Output Card -->
+          <div id="gemini-trait-card" class="mt-8 p-5 rounded-2xl bg-white/10 backdrop-blur border border-white/10 max-w-md mx-auto transition-all duration-500 opacity-0 transform scale-95">
+            <h4 class="font-serif text-lg text-gold font-bold mb-2" id="trait-title">Мудрость</h4>
+            <p class="text-xs text-stone-300 font-light leading-relaxed" id="trait-desc">
+              Твоя мудрость — наш верный ориентир. Твое слово способно уладить любую тревогу и направить в нужное русло.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= HEART & PETAL COMPLIMENTS WISH MACHINE ================= -->
+    <section class="px-4 py-20 text-center max-w-2xl mx-auto">
+      <div class="mb-8">
+        <span class="text-rosegold text-xs font-bold uppercase tracking-widest">Подари улыбку маме</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-stone-850 font-bold mt-1">Океан Нежных Слов 💖</h2>
+        <p class="text-xs text-stone-555 font-light mt-3">
+          Нажмите на кнопку ниже, чтобы осыпать маму лепестками роз и прочитать праздничные комплименты!
+        </p>
+      </div>
+
+      <button id="wish-btn" class="relative group px-10 py-5 bg-gradient-to-r from-rosegold-dark via-rosegold to-rosegold-dark text-white font-bold rounded-full shadow-rose-glow hover:scale-105 hover:shadow-lg active:scale-95 transition-all outline-none z-10 overflow-hidden">
+        <span class="relative z-10 flex items-center justify-center gap-2">
+          Сказать нежные слова маме... 🌹✨
+        </span>
+        <!-- Shine sweep on button -->
+        <span class="absolute top-0 -left-full w-1/2 h-full bg-white/20 skew-x-12 group-hover:left-full transition-all duration-1000"></span>
+      </button>
+
+      <!-- Animated Compliment Display Parchment -->
+      <div id="compliment-box" class="mt-12 p-8 glass-card rounded-3xl opacity-0 transform scale-90 max-w-lg mx-auto shadow-md">
+        <span class="text-[9px] uppercase tracking-[0.25em] text-rosegold-dark font-bold block mb-4">Для Мамы Мехрибан</span>
+        <p id="compliment-text" class="font-serif text-xl sm:text-2xl italic text-stone-800 leading-relaxed font-semibold">
+          Мама, твой голос — самое лучшее лекарство от любых тревог.
+        </p>
+        <div class="w-8 h-px bg-stone-300 mx-auto my-4"></div>
+        <p class="font-cursive text-2xl text-gold-dark">Мы любим тебя безумно!</p>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="py-16 text-center border-t border-stone-200/40 relative z-20">
+      <p class="text-stone-400 text-xs font-light tracking-widest uppercase">Мехрибан • 50 ЛЕТ Золотой Юбилей • 2026</p>
+      <p class="font-serif text-rosegold-dark font-bold mt-4 text-base">Любимой Маме от Папы Шохрата и Детей ❤️</p>
+      <div class="flex justify-center gap-4 mt-6">
+        <span class="text-lg">🌸</span>
+        <span class="text-lg">✨</span>
+        <span class="text-lg">💖</span>
+        <span class="text-lg">✨</span>
+        <span class="text-lg">🌸</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ================= LIGHTBOX MODAL ================= -->
+  <div id="lightbox" class="fixed inset-0 bg-stone-900/95 backdrop-blur-md z-[10000] flex items-center justify-center p-4">
+    <!-- Close button -->
+    <button id="lightbox-close" class="absolute top-6 right-6 text-white/80 hover:text-white text-3xl font-light outline-none p-2" title="Закрыть">✕</button>
+    
+    <!-- Prev button -->
+    <button id="lightbox-prev" class="absolute left-4 sm:left-8 text-white/60 hover:text-white text-4xl font-light outline-none p-4" title="Предыдущее">‹</button>
+    
+    <!-- Next button -->
+    <button id="lightbox-next" class="absolute right-4 sm:right-8 text-white/60 hover:text-white text-4xl font-light outline-none p-4" title="Следующее">›</button>
+
+    <div class="max-w-4xl w-full flex flex-col items-center">
+      <!-- Image frame with soft shadow -->
+      <div class="bg-white p-3 rounded shadow-2xl max-h-[70dvh] max-w-full flex items-center justify-center overflow-hidden">
+        <img id="lightbox-img" src="" alt="Детали снимка" class="max-h-[66dvh] max-w-full object-contain" />
+      </div>
+      <!-- Quote and description in lightbox -->
+      <div class="text-center mt-6 text-white max-w-xl px-4">
+        <h4 id="lightbox-title" class="font-serif text-xl sm:text-2xl text-gold font-bold">Яркие улочки Индии 🇮🇳</h4>
+        <p id="lightbox-desc" class="text-xs text-stone-300 font-light leading-relaxed mt-2">Прекрасные моменты путешествия с семьей.</p>
+        <div class="border-l-2 border-gold/60 pl-3 py-1 bg-white/5 rounded-r-lg mt-4 max-w-md mx-auto" id="lightbox-quote-box">
+          <p id="lightbox-quote" class="font-serif text-xs italic text-stone-200">«Любить — значит смотреть вместе в одном направлении».</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= MASTER CONTROLLER SCRIPT ================= -->
+  <script>
+    // --- STATE & DATA ---
+    const BIRTH_DATE = new Date(1976, 4, 22, 0, 0, 0); // May 22, 1976
+    let activeMediaIndex = 0;
+
+    // Timeline chronological data (combines best highlights & beautiful historical photos)
+    const TIMELINE_DATA = [
+      {
+        date: '22.05.1976',
+        title: 'Рождение легендарной мамы ✨',
+        text: 'День, когда этот мир обрел свою самую яркую, нежную и любящую душу. Твое рождение подарило радость всем близким.',
+        quote: '«Материнское сердце — это глубокая бездна, на дне которой вы всегда найдете прощение и тепло».',
+        img: 'oldphoto1.jpg'
+      },
+      {
+        date: 'Золотая Юность',
+        title: 'Время больших надежд и грации 🌸',
+        text: 'Годы твоей юности, наполненные неувядаемой красотой, нежным лучезарным взглядом и великими надеждами на будущее.',
+        quote: '«Молодость — это не время жизни, это состояние духа и природная чистота сердца».',
+        img: 'india3.jpg' // beautiful portrait placeholder or matching image
+      },
+      {
+        date: 'Создание Семьи',
+        title: 'Союз любящих сердец с папой Шохратом 💍',
+        text: 'Начало вашей прекрасной истории любви и создание крепкого семейного очага. Твоя мудрость стала основой нашей счастливой крепости.',
+        quote: '«Семья — это не просто важная вещь. Это всё, что у нас есть и что нас бережет».',
+        img: '6.jpg'
+      },
+      {
+        date: 'Святое Материнство',
+        title: 'Бесконечный материнский труд ❤️',
+        text: 'Твои бессонные ночи, нежные руки, укачивающие нас, и вечные молитвы, которые оберегают нас каждый день на жизненном пути.',
+        quote: '«Рука, качающая колыбель, правит миром и дарит ему лучшее будущее».',
+        img: '5.jpg'
+      },
+      {
+        date: 'Наши Дни',
+        title: 'Главное сокровище нашей большой семьи 👑',
+        text: 'Мамочка, ты наш ангел-хранитель. Сегодня, в твой 50-летний золотой юбилей, мы благодарим тебя за каждый прожитый миг заботы!',
+        quote: '«С каждым годом твоя внутренняя красота сияет всё ярче, озаряя всех вокруг».',
+        img: '1.jpg'
+      }
+    ];
+
+    // Polaroid Memory Gallery data
+    const GALLERY_DATA = [
+      {
+        img: 'india1.jpg',
+        title: 'Яркие краски Индии 🇮🇳',
+        desc: 'Погружение в культуру восточной сказки, экзотические ароматы и прекрасный дух индийских приключений.',
+        quote: '«Мир — это книга, и те, кто не путешествуют, успевают прочесть лишь одну её страницу».',
+        tag: 'india'
+      },
+      {
+        img: 'india2.jpg',
+        title: 'Счастье новых открытий 🕊️',
+        desc: 'Моменты, наполненные удивительной энергетикой. Твои глаза светятся неподдельным восторгом.',
+        quote: '«Счастье — это не место назначения, а способ путешествовать в кругу любимых людей».',
+        tag: 'india'
+      },
+      {
+        img: 'india3.jpg',
+        title: 'Грация и красота ✨',
+        desc: 'Восхитительное сочетание индийских мотивов и твоей природной женственности, украшающей любой кадр.',
+        quote: '«Красота женщины возрастает вместе с годами, которые она проживает с добрым сердцем».',
+        tag: 'india'
+      },
+      {
+        img: 'india4.jpg',
+        title: 'Рука об руку 💞',
+        desc: 'Прекрасные мгновения, разделенные с папой в Индии. Ваша любовь преодолевает расстояния.',
+        quote: '«Любить — значит смотреть не друг на друга, а смотреть вместе в одном направлении».',
+        tag: 'india'
+      },
+      {
+        img: '1.jpg',
+        title: 'Морские прогулки с папой 🇹🇷',
+        desc: 'Свежий соленый ветер, синее море и абсолютное спокойствие турецкого побережья.',
+        quote: '«Жизнь измеряется моментами, от которых захватывает дух».',
+        tag: 'turkey'
+      },
+      {
+        img: '2.jpg',
+        title: 'Уютные турецкие вечера 🌟',
+        desc: 'Время, когда можно никуда не спешить, наслаждаться прохладой и надежным плечом папы рядом.',
+        quote: '«Самое большое счастье в жизни — это твердая уверенность в том, что тебя любят».',
+        tag: 'turkey'
+      },
+      {
+        img: '3.jpg',
+        title: 'Атмосфера Стамбула 🕌',
+        desc: 'Прогулки на фоне знаменитых мечетей, вековые камни истории и твоя улыбка.',
+        quote: '«Города меняются, но воспоминания, созданные в них, остаются навсегда».',
+        tag: 'turkey'
+      },
+      {
+        img: '4.jpg',
+        title: 'Тепло южного солнца ☀️',
+        desc: 'Моменты безмятежного тепла, ласкового солнца и прекрасного золотого настроения.',
+        quote: '«Держись ближе к солнцу, и тепло твоей души согреет весь окружающий мир».',
+        tag: 'turkey'
+      },
+      {
+        img: 'oldphoto1.jpg',
+        title: 'Семейные истоки 🕰️',
+        desc: 'Фотография, бережно хранящая память о самых ранних и искренних годах нашей жизни.',
+        quote: '«Память — это единственный рай, из которого нас никто не может изгнать».',
+        tag: 'archive'
+      },
+      {
+        img: 'turkey1.jpg',
+        title: 'Живописная Турция 🌅',
+        desc: 'Захватывающие дух пейзажи и теплое объятие совместного долгожданного путешествия.',
+        quote: '«Встречать закаты с любимым человеком — это высшая роскошь нашей жизни».',
+        tag: 'turkey'
+      },
+      {
+        img: 'turkey2.jpg',
+        title: 'Светлые воспоминания 💮',
+        desc: 'Красивый искренний портрет мамы Мехрибан на фоне величественных турецких улочек.',
+        quote: '«Улыбка матери способна рассеять любые тучи над головой ребенка».',
+        tag: 'turkey'
+      },
+      {
+        img: '6.jpg',
+        title: 'Золотой семейный союз 💍',
+        desc: 'Прекрасный кадр с папой Шохратом, олицетворяющий преданность и совместное семейное счастье.',
+        quote: '«Крепкая семья — это спасательный плот в бурном океане жизни».',
+        tag: 'archive'
+      }
+    ];
+
+    // Zodiac Stars Trait data
+    const ZODIAC_TRAITS = [
+      { id: 1, name: 'Мудрость 🧠', x: 20, y: 30, desc: 'Мама, твоя мудрость всегда помогает нам делать правильный выбор в жизни. Твои советы неоценимы!' },
+      { id: 2, name: 'Доброта ❤️', x: 45, y: 20, desc: 'Твое сердце не знает границ. Ты готова обогреть любовью каждого, кто в этом нуждается.' },
+      { id: 3, name: 'Энергия ⚡', x: 75, y: 25, desc: 'Твоя легкая воздушная энергия Близнецов заряжает оптимизмом и жизнелюбием всех вокруг!' },
+      { id: 4, name: 'Нежность 🌸', x: 30, y: 70, desc: 'Имя Мехрибан значит «ласковая», и твои теплые объятия способны исцелить любую грусть.' },
+      { id: 5, name: 'Обаяние ✨', x: 60, y: 65, desc: 'Твоя природная грация, лучезарная улыбка и шарм делают тебя королевой любого вечера.' },
+      { id: 6, name: 'Семейный очаг 🏡', x: 85, y: 75, desc: 'Ты создаешь уют, бережешь традиции нашей семьи и собираешь всех нас вместе за общим столом.' }
+    ];
+
+    // Mom Compliments for Compliment Button
+    const COMPLIMENTS = [
+      "Мамочка, твой ласковый голос — лучшее лекарство от любых тревог.",
+      "Твоя безусловная любовь дает нам крылья расти и совершать новые подвиги.",
+      "Мехрибан — самое нежное и ласковое имя на свете, которое ты оправдываешь на все 100%!",
+      "Рядом с папой Шохратом ты выглядишь как сияющая, счастливая и любимая королева.",
+      "Спасибо тебе за твое бесконечное терпение, материнскую мудрость и самые ласковые руки.",
+      "Ты — сердце, душа и главный ангел-хранитель нашей большой дружной семьи.",
+      "Твои нежные объятия могут согреть даже в самый лютый зимний мороз.",
+      "Мамочка, в твои 50 лет ты выглядишь потрясающе! Пусть твоя улыбка сияет каждый день!",
+      "Ты умеешь находить красоту в простых вещах и учишь нас радоваться каждому мгновению жизни.",
+      "Твоя доброта делает этот мир чище, лучше и светлее."
+    ];
+
+
+    // ================= DYNAMIC LIVE TIMER =================
+    function updateTimer() {
+      const now = new Date();
+      let years = now.getFullYear() - BIRTH_DATE.getFullYear();
+      let months = now.getMonth() - BIRTH_DATE.getMonth();
+      let days = now.getDate() - BIRTH_DATE.getDate();
+
+      if (days < 0) { 
+        months--; 
+        // approximate days of previous month
+        days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); 
+      }
+      if (months < 0) { 
+        years--; 
+        months += 12; 
+      }
+
+      document.getElementById('c-years').innerText = years;
+      document.getElementById('c-months').innerText = months;
+      document.getElementById('c-days').innerText = days;
+      document.getElementById('c-hours').innerText = String(now.getHours()).padStart(2, '0');
+      document.getElementById('c-mins').innerText = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('c-secs').innerText = String(now.getSeconds()).padStart(2, '0');
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+
+    // ================= TIMELINE BUILDER =================
+    const timelineContainer = document.getElementById('timeline-cards-container');
+    TIMELINE_DATA.forEach((item, i) => {
+      const alignClass = i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse';
+      const textAlignment = i % 2 === 0 ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12';
+      
+      const cardEl = document.createElement('div');
+      cardEl.className = `flex flex-col ${alignClass} items-center gap-6 md:gap-0 w-full relative timeline-card`;
+      
+      cardEl.innerHTML = `
+        <!-- Left/Right Card content -->
+        <div class="w-full md:w-1/2 ${textAlignment}">
+          <div class="glass-card p-6 rounded-2xl shadow-card-premium border border-white/60 relative overflow-hidden group">
+            <time class="inline-block text-[10px] font-bold text-gold-dark tracking-widest bg-gold-light px-2.5 py-0.5 rounded-full mb-3">${item.date}</time>
+            <h3 class="font-serif text-xl sm:text-2xl font-bold text-stone-850 mb-2">${item.title}</h3>
+            <p class="text-stone-500 text-xs sm:text-sm font-light leading-relaxed mb-4">${item.text}</p>
+            
+            <div class="border-l-2 md:border-l-0 ${i % 2 === 0 ? 'md:border-r-2 md:pr-3 md:border-gold/40' : 'md:border-l-2 md:pl-3 md:border-gold/40'} border-gold/40 pl-3 py-1 bg-stone-50/50 rounded-r-lg md:rounded-none">
+              <p class="font-serif text-xs italic text-stone-600 leading-relaxed">${item.quote}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Central node marker -->
+        <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 z-20 w-8 h-8 rounded-full bg-white border-4 border-gold shadow-md items-center justify-center">
+          <div class="w-2.5 h-2.5 rounded-full bg-rosegold"></div>
+        </div>
+
+        <!-- Right/Left Photo content -->
+        <div class="w-full md:w-1/2 ${i % 2 === 0 ? 'md:pl-12' : 'md:pr-12'}">
+          <div class="overflow-hidden rounded-2xl shadow-md border border-white max-h-64 bg-stone-100">
+            <img src="${item.img}" alt="${item.title}" class="w-full h-56 sm:h-64 object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+          </div>
+        </div>
+      `;
+      timelineContainer.appendChild(cardEl);
+    });
+
+
+    // ================= POLAROID GALLERY BUILDER =================
+    const galleryGrid = document.getElementById('gallery-grid');
+    
+    function renderGallery(filterTag = 'all') {
+      galleryGrid.innerHTML = '';
+      
+      const filtered = filterTag === 'all' 
+        ? GALLERY_DATA 
+        : GALLERY_DATA.filter(item => item.tag === filterTag);
+
+      filtered.forEach((item, index) => {
+        const globalIndex = GALLERY_DATA.indexOf(item);
+        const col = document.createElement('div');
+        col.className = 'gallery-item cursor-pointer';
+        
+        col.innerHTML = `
+          <div class="polaroid-card group transition-all duration-300" onclick="openLightbox(${globalIndex})">
+            <div class="polaroid-img-wrapper h-60 w-full">
+              <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+            </div>
+            <div class="mt-4 text-center">
+              <p class="font-cursive text-3xl text-rosegold-dark">${item.title.split(' ')[0]}</p>
+              <p class="text-[10px] uppercase font-bold text-stone-400 mt-1 tracking-wider">${item.title}</p>
+            </div>
+          </div>
+        `;
+        galleryGrid.appendChild(col);
+        
+        // Add 3D Mouse Tilt effect to the newly rendered polaroid
+        const card = col.querySelector('.polaroid-card');
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          // Soft tilt rotation values
+          const tiltX = -(y / rect.height) * 15;
+          const tiltY = (x / rect.width) * 15;
+          card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+        });
+      });
+    }
+    
+    // Initial Render
+    renderGallery('all');
+
+    // Filter Buttons logic
+    const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Toggle Active style
+        filterButtons.forEach(b => {
+          b.className = "gallery-filter-btn px-5 py-2.5 rounded-full font-medium text-xs sm:text-sm transition-all glass-card text-stone-650 hover:bg-stone-50 outline-none";
+        });
+        btn.className = "gallery-filter-btn px-5 py-2.5 rounded-full font-medium text-xs sm:text-sm transition-all bg-rosegold text-white shadow-sm outline-none";
+        
+        const filter = btn.getAttribute('data-filter');
+        // Smooth transition effect
+        gsap.to("#gallery-grid", {
+          opacity: 0,
+          y: 10,
+          duration: 0.25,
+          onComplete: () => {
+            renderGallery(filter);
+            gsap.to("#gallery-grid", { opacity: 1, y: 0, duration: 0.35 });
+          }
+        });
+      });
+    });
+
+
+    // ================= LIGHTBOX SYSTEM =================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDesc = document.getElementById('lightbox-desc');
+    const lightboxQuote = document.getElementById('lightbox-quote');
+
+    function openLightbox(index) {
+      activeMediaIndex = index;
+      const data = GALLERY_DATA[index];
+      
+      lightboxImg.src = data.img;
+      lightboxTitle.innerText = data.title;
+      lightboxDesc.innerText = data.desc;
+      lightboxQuote.innerText = data.quote;
+      
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Lock background scroll
+      
+      // Animate Lightbox content entrance
+      gsap.fromTo("#lightbox-img", {scale: 0.85, opacity: 0}, {scale: 1, opacity: 1, duration: 0.45, ease: "power2.out"});
+      gsap.fromTo("#lightbox-title, #lightbox-desc, #lightbox-quote-box", {y: 15, opacity: 0}, {y: 0, opacity: 1, duration: 0.5, delay: 0.1, stagger: 0.08});
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = ''; // Unlock background scroll
+    }
+
+    function navigateLightbox(dir) {
+      let nextIndex = activeMediaIndex + dir;
+      if (nextIndex < 0) nextIndex = GALLERY_DATA.length - 1;
+      if (nextIndex >= GALLERY_DATA.length) nextIndex = 0;
+      
+      // Slide/Fade transition for smooth feeling
+      gsap.to("#lightbox-img, #lightbox-title, #lightbox-desc, #lightbox-quote-box", {
+        opacity: 0, 
+        y: dir * 15,
+        duration: 0.25, 
+        onComplete: () => {
+          openLightbox(nextIndex);
+        }
+      });
+    }
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-prev').addEventListener('click', () => navigateLightbox(-1));
+    document.getElementById('lightbox-next').addEventListener('click', () => navigateLightbox(1));
+    
+    // Close lightbox on clicking outside the container
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard support for Lightbox
+    window.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+    });
+
+
+    // ================= LOVE LETTERS TABS =================
+    const btnTabPvh = document.getElementById('btn-tab-pvh');
+    const btnTabKids = document.getElementById('btn-tab-kids');
+    const tabPvhContent = document.getElementById('tab-pvh-content');
+    const tabKidsContent = document.getElementById('tab-kids-content');
+
+    btnTabPvh.addEventListener('click', () => {
+      btnTabPvh.className = "px-6 py-2.5 rounded-full font-medium text-xs sm:text-sm tracking-wider uppercase transition-all shadow-sm bg-gold text-white outline-none";
+      btnTabKids.className = "px-6 py-2.5 rounded-full font-medium text-xs sm:text-sm tracking-wider uppercase transition-all shadow-sm glass-card text-stone-650 hover:bg-stone-50 outline-none";
+      
+      gsap.to(tabKidsContent, { opacity: 0, duration: 0.2, onComplete: () => {
+        tabKidsContent.classList.add('hidden');
+        tabPvhContent.classList.remove('hidden');
+        gsap.fromTo(tabPvhContent, {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.4});
+      }});
+    });
+
+    btnTabKids.addEventListener('click', () => {
+      btnTabKids.className = "px-6 py-2.5 rounded-full font-medium text-xs sm:text-sm tracking-wider uppercase transition-all shadow-sm bg-gold text-white outline-none";
+      btnTabPvh.className = "px-6 py-2.5 rounded-full font-medium text-xs sm:text-sm tracking-wider uppercase transition-all shadow-sm glass-card text-stone-650 hover:bg-stone-50 outline-none";
+      
+      gsap.to(tabPvhContent, { opacity: 0, duration: 0.2, onComplete: () => {
+        tabPvhContent.classList.add('hidden');
+        tabKidsContent.classList.remove('hidden');
+        gsap.fromTo(tabKidsContent, {opacity: 0, y: 10}, {opacity: 1, y: 0, duration: 0.4});
+      }});
+    });
+
+
+    // ================= GEMINI CONSTELLATION INTERACTIVE =================
+    const geminiBox = document.getElementById('gemini-constellation');
+    const geminiSvg = document.getElementById('gemini-lines-svg');
+    const traitCard = document.getElementById('gemini-trait-card');
+    const traitTitle = document.getElementById('trait-title');
+    const traitDesc = document.getElementById('trait-desc');
+
+    // Create stars dynamically in absolute positions
+    ZODIAC_TRAITS.forEach(trait => {
+      const star = document.createElement('div');
+      star.className = 'gemini-star';
+      star.style.left = `${trait.x}%`;
+      star.style.top = `${trait.y}%`;
+      star.setAttribute('data-id', trait.id);
+      
+      // Star labels in tiny text
+      const starLabel = document.createElement('span');
+      starLabel.className = 'absolute text-[9px] text-stone-400 font-bold -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-60 transition-opacity duration-300';
+      starLabel.innerText = trait.name.split(' ')[0];
+      star.appendChild(starLabel);
+
+      geminiBox.appendChild(star);
+
+      // Star Hover / Click interactions
+      const triggerInteraction = () => {
+        // Highlight active star
+        document.querySelectorAll('.gemini-star').forEach(s => s.classList.remove('ring-4', 'ring-gold/60'));
+        star.classList.add('ring-4', 'ring-gold/60');
+        
+        // Populate trait card
+        traitTitle.innerText = trait.name;
+        traitDesc.innerText = trait.desc;
+        
+        // Show card
+        traitCard.classList.remove('opacity-0', 'scale-95');
+        traitCard.classList.add('opacity-100', 'scale-100');
+        
+        // Canvas sparkle burst inside zodiac card container
+        confetti({
+          particleCount: 15,
+          angle: 90,
+          spread: 45,
+          origin: { y: 0.8 },
+          colors: ['#d4af37', '#ffffff', '#c9a087']
+        });
+      };
+
+      star.addEventListener('mouseenter', triggerInteraction);
+      star.addEventListener('click', triggerInteraction);
+    });
+
+    // Connect stars with SVG lines
+    function drawZodiacLines() {
+      // Clear previous lines
+      geminiSvg.innerHTML = '';
+      const w = geminiBox.clientWidth;
+      const h = geminiBox.clientHeight;
+      geminiSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      
+      // Connecting pairs (star index connections)
+      const connections = [
+        [1, 2], [2, 3], [1, 4], [4, 5], [5, 6], [2, 5]
+      ];
+      
+      connections.forEach(pair => {
+        const starA = ZODIAC_TRAITS.find(t => t.id === pair[0]);
+        const starB = ZODIAC_TRAITS.find(t => t.id === pair[1]);
+        
+        if (starA && starB) {
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', (starA.x / 100) * w);
+          line.setAttribute('y1', (starA.y / 100) * h);
+          line.setAttribute('x2', (starB.x / 100) * w);
+          line.setAttribute('y2', (starB.y / 100) * h);
+          line.setAttribute('stroke', 'rgba(255, 255, 255, 0.15)');
+          line.setAttribute('stroke-width', '1.5');
+          line.setAttribute('stroke-dasharray', '3,3');
+          geminiSvg.appendChild(line);
+        }
+      });
+    }
+
+    // Call draw lines after load and window resize
+    window.addEventListener('resize', drawZodiacLines);
+    setTimeout(drawZodiacLines, 1000);
+
+
+    // ================= ENVELOPE INTERACTIVE OPENING =================
+    const envelopeClick = document.getElementById('envelope-click');
+    const overlay = document.getElementById('opening-overlay');
+    const mainContent = document.getElementById('main-content');
+    const music = document.getElementById('bg-music');
+    const vinyl = document.getElementById('vinyl-disc');
+    const musicWidget = document.getElementById('music-widget');
+    const envelopeOpenBtn = document.getElementById('envelope-open-btn');
+
+    function executeEnvelopeOpen() {
+      overlay.classList.add('is-opening');
+      
+      // Slide up and reveal invitation card
+      setTimeout(() => {
+        // Confetti burst on envelope open
+        confetti({
+          particleCount: 50,
+          spread: 80,
+          origin: { y: 0.6 },
+          colors: ['#d4af37', '#ffffff', '#c9a087', '#f6e6dd']
+        });
+      }, 700);
+    }
+
+    envelopeClick.addEventListener('click', (e) => {
+      // Prevents re-triggering once opened
+      if (overlay.classList.contains('is-opening')) return;
+      executeEnvelopeOpen();
+    });
+
+    envelopeOpenBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Avoid triggering parent wrapper click
+      
+      // Phase 2: Fade out entire overlay screen and start site experience
+      overlay.classList.add('fade-out');
+      
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        mainContent.classList.remove('opacity-0');
+        
+        // Start background music automatically
+        startMusicPlayback();
+        
+        // Massive celebratory full-screen confetti explosion!
+        const duration = 2.5 * 1000;
+        const end = Date.now() + duration;
+
+        (function frame() {
+          confetti({
+            particleCount: 4,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ['#d4af37', '#ffffff', '#c9a087']
+          });
+          confetti({
+            particleCount: 4,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ['#d4af37', '#ffffff', '#c9a087']
+          });
+
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        }());
+
+        // Initialize GSAP timelines once page is revealed
+        initializeScrollAnimations();
+        drawZodiacLines();
+      }, 1000);
+    });
+
+
+    // ================= AUDIO PLAYER MANAGEMENT =================
+    function startMusicPlayback() {
+      music.play().then(() => {
+        vinyl.classList.add('playing');
+        musicWidget.classList.add('playing');
+      }).catch(() => {
+        console.log("Браузер ограничил автозвук. Музыка ждет ручного клика.");
+      });
+    }
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        vinyl.classList.add('playing');
+        musicWidget.classList.add('playing');
+      } else {
+        music.pause();
+        vinyl.classList.remove('playing');
+        musicWidget.classList.remove('playing');
+      }
+    }
+
+    vinyl.addEventListener('click', toggleMusic);
+
+
+    // ================= GSAP SCROLL ANIMATIONS =================
+    function initializeScrollAnimations() {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // 1. Growing glowing line down the timeline
+      gsap.fromTo("#timeline-scroll-indicator", 
+        { height: "0%" }, 
+        { 
+          height: "100%", 
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#timeline-section",
+            start: "top 30%",
+            end: "bottom 70%",
+            scrub: true
+          }
+        }
+      );
+
+      // 2. Timeline cards fade-in and slide-in from sides
+      gsap.utils.toArray(".timeline-card").forEach((card, idx) => {
+        const sideMultiplier = idx % 2 === 0 ? -40 : 40;
+        
+        gsap.fromTo(card, 
+          { 
+            opacity: 0, 
+            x: sideMultiplier, 
+            scale: 0.96 
+          }, 
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      // 3. Simple fade-ins for other sections
+      gsap.utils.toArray("section").forEach(sec => {
+        gsap.from(sec, {
+          opacity: 0,
+          y: 20,
+          duration: 1,
+          scrollTrigger: {
+            trigger: sec,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      });
+    }
+
+
+    // ================= HEART & ROSE PETALS EXPLOSION BUTTON =================
+    const wishBtn = document.getElementById('wish-btn');
+    const complimentBox = document.getElementById('compliment-box');
+    const complimentText = document.getElementById('compliment-text');
+
+    wishBtn.addEventListener('click', () => {
+      // 1. Spawn a gorgeous Canvas Confetti rain of hearts and roses colors!
+      const defaults = { spread: 360, ticks: 100, gravity: 0.6, decay: 0.94, startVelocity: 30, colors: ['#c9a087', '#d4af37', '#f6e6dd', '#ff4d6d', '#ffb3c1'] };
+      
+      confetti({ ...defaults, particleCount: 40, scalar: 1.2, shapes: ['heart'] });
+      confetti({ ...defaults, particleCount: 30, scalar: 0.8 });
+      
+      // 2. Trigger random compliment with smooth fade-in
+      const randomComp = COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)];
+      
+      gsap.to(complimentBox, {
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.25,
+        onComplete: () => {
+          complimentText.innerText = randomComp;
+          complimentBox.classList.remove('opacity-0', 'scale-90');
+          gsap.to(complimentBox, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: "elastic.out(1, 0.75)"
+          });
+        }
+      });
+
+      // 3. Rain additional custom flower emoji elements from the sky
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+          const petal = document.createElement('div');
+          petal.className = 'wish-petal text-xl';
+          petal.innerHTML = ['🌹', '🌸', '💖', '💐', '🌷', '✨'][Math.floor(Math.random() * 6)];
+          petal.style.left = `${Math.random() * 100}vw`;
+          petal.style.opacity = Math.random() * 0.7 + 0.3;
+          
+          document.body.appendChild(petal);
+
+          // Animate drift down using GSAP
+          gsap.to(petal, {
+            y: window.innerHeight + 100,
+            x: `+=${Math.random() * 150 - 75}`,
+            rotation: Math.random() * 720,
+            duration: Math.random() * 3.5 + 2.5,
+            ease: "none",
+            onComplete: () => petal.remove()
+          });
+        }, i * 80);
+      }
+    });
+
+
+    // ================= HIGH-PERFORMANCE FLOATING CANVAS (GOLD DUST & PETALS) =================
+    const bgCanvas = document.getElementById('background-canvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    
+    let bgParticles = [];
+
+    function resizeBgCanvas() {
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeBgCanvas);
+    resizeBgCanvas();
+
+    // Populate particles (mixture of tiny golden dust and larger pink petals)
+    const particleColors = ['rgba(212, 175, 55, 0.25)', 'rgba(201, 160, 135, 0.2)', 'rgba(254, 230, 221, 0.3)'];
+    
+    for (let i = 0; i < 40; i++) {
+      bgParticles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 2.5 + 0.5,
+        color: particleColors[Math.floor(Math.random() * particleColors.length)],
+        speedY: Math.random() * 0.4 + 0.15,
+        speedX: Math.random() * 0.2 - 0.1,
+        wiggle: Math.random() * 0.02,
+        wiggleSpeed: Math.random() * 0.005
+      });
+    }
+
+    function renderBg() {
+      bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+      
+      bgParticles.forEach(p => {
+        bgCtx.beginPath();
+        bgCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        bgCtx.fillStyle = p.color;
+        bgCtx.fill();
+        
+        // Update physics
+        p.y += p.speedY;
+        p.x += p.speedX + Math.sin(Date.now() * p.wiggleSpeed) * p.wiggle;
+        
+        // Reset at boundaries
+        if (p.y > bgCanvas.height) {
+          p.y = -10;
+          p.x = Math.random() * bgCanvas.width;
+        }
+        if (p.x > bgCanvas.width) p.x = 0;
+        if (p.x < 0) p.x = bgCanvas.width;
+      });
+      
+      requestAnimationFrame(render);
+    }
+
+    // Handle initial render loop
+    function render() {
+      renderBg();
+    }
+    render();
+  </script>
+</body>
+</html>
